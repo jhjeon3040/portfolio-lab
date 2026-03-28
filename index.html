@@ -10,10 +10,10 @@
     .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
     h1 { font-size: 1.6rem; margin-bottom: 4px; }
     .subtitle { color: #7d8590; font-size: 0.85rem; margin-bottom: 24px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
-    .card-label { font-size: 0.75rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.5px; }
-    .card-value { font-size: 1.5rem; font-weight: 700; margin-top: 4px; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; }
+    .card-label { font-size: 0.7rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-value { font-size: 1.3rem; font-weight: 700; margin-top: 4px; word-break: break-all; }
     .positive { color: #3fb950; }
     .negative { color: #f85149; }
     .neutral { color: #e6edf3; }
@@ -39,10 +39,23 @@
     .alert-warn { background: #3d2a1f; border: 1px solid #d29922; color: #e3b341; }
     .alert-target { background: #1f3d2a; border: 1px solid #238636; color: #3fb950; }
     .progress-ring { display: flex; align-items: center; gap: 12px; }
+    .holdings-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     @media (max-width: 768px) {
-      .cards { grid-template-columns: repeat(2, 1fr); }
-      table { font-size: 0.75rem; }
-      th, td { padding: 6px 8px; }
+      .container { padding: 12px; }
+      h1 { font-size: 1.3rem; }
+      .cards { gap: 8px; }
+      .card { padding: 10px; }
+      .card-value { font-size: 1.1rem; }
+      .section { padding: 12px; }
+      table { font-size: 0.72rem; white-space: nowrap; }
+      th, td { padding: 6px 6px; }
+      .chart-container { height: 160px; }
+      .tag { font-size: 0.6rem; padding: 1px 5px; }
+    }
+    @media (max-width: 400px) {
+      .card-value { font-size: 0.95rem; }
+      .card-label { font-size: 0.6rem; }
+      table { font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -61,12 +74,14 @@
 
     <div class="section">
       <div class="section-title">Holdings</div>
+      <div class="holdings-scroll">
       <table id="holdings-table">
         <thead>
           <tr><th>종목</th><th>테마</th><th>수량</th><th>매수가</th><th>현재가</th><th>수익률</th><th>목표 진행률</th></tr>
         </thead>
         <tbody></tbody>
       </table>
+      </div>
     </div>
 
     <div class="section">
