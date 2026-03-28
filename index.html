@@ -62,6 +62,9 @@
     .modal-btns button { padding: 6px 16px; border-radius: 6px; border: 1px solid #30363d; cursor: pointer; font-size: 0.8rem; }
     .btn-primary { background: #238636; border-color: #238636 !important; color: #fff; }
     .btn-secondary { background: #21262d; color: #7d8590; }
+    .trade-buy { color: #f85149; font-weight: 600; }
+    .trade-sell { color: #58a6ff; font-weight: 600; }
+    .trade-note { color: #7d8590; font-size: 0.75rem; }
     .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; }
     .alert-warn { background: #3d2a1f; border: 1px solid #d29922; color: #e3b341; }
     .alert-target { background: #1f3d2a; border: 1px solid #238636; color: #3fb950; }
@@ -115,6 +118,18 @@
       <table id="holdings-table">
         <thead>
           <tr><th>종목</th><th>테마</th><th>수량</th><th>매수가</th><th>현재가</th><th>수익률</th><th>목표 진행률</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Trade History</div>
+      <div class="holdings-scroll">
+      <table id="trades-table">
+        <thead>
+          <tr><th>날짜</th><th>구분</th><th>종목</th><th>가격</th><th>수량</th><th>금액</th><th>메모</th></tr>
         </thead>
         <tbody></tbody>
       </table>
@@ -300,6 +315,32 @@
           ctx.fillText(d.date.slice(5), x, h - 8);
         }
       });
+    }
+
+    function renderTrades(data) {
+      const tbody = document.querySelector('#trades-table tbody');
+      if (!data.trades || data.trades.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#7d8590">매매 기록 없음</td></tr>';
+        return;
+      }
+      const sorted = [...data.trades].sort((a, b) => b.date.localeCompare(a.date));
+      tbody.innerHTML = sorted.map(t => {
+        const isBuy = t.type === 'BUY';
+        const typeClass = isBuy ? 'trade-buy' : 'trade-sell';
+        const typeLabel = isBuy ? '매수' : '매도';
+        const isUS = t.market === 'US';
+        const price = isUS ? '$' + t.price.toLocaleString(undefined, {minimumFractionDigits: 2}) : t.price.toLocaleString() + '원';
+        const amount = isUS ? '$' + (t.price * t.quantity).toLocaleString(undefined, {minimumFractionDigits: 2}) : (t.price * t.quantity).toLocaleString() + '원';
+        return `<tr>
+          <td>${t.date}</td>
+          <td><span class="${typeClass}">${typeLabel}</span></td>
+          <td><strong>${t.name}</strong><br><span style="color:#7d8590;font-size:0.75rem">${t.ticker}</span></td>
+          <td>${price}</td>
+          <td>${t.quantity}</td>
+          <td>${amount}</td>
+          <td class="trade-note">${t.note || ''}</td>
+        </tr>`;
+      }).join('');
     }
 
     function renderAllocChart(data) {
@@ -570,6 +611,7 @@
       renderSummary(portfolioData);
       renderHoldings(portfolioData);
       renderAlerts(portfolioData);
+      renderTrades(portfolioData);
       renderPerfChart(portfolioData);
       renderAllocChart(portfolioData);
 

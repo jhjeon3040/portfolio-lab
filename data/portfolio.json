@@ -20,6 +20,18 @@
       {"name": "Broadcom", "ticker": "AVGO", "buy_price": 300.68, "quantity": 5, "target": 431, "stop_loss": 256, "theme": "AI+보안"}
     ]
   },
+  "trades": [
+    {"date": "2026-03-29", "type": "BUY", "ticker": "000660", "name": "SK하이닉스", "market": "KR", "price": 907000, "quantity": 3, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "005930", "name": "삼성전자", "market": "KR", "price": 179700, "quantity": 12, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "012450", "name": "한화에어로스페이스", "market": "KR", "price": 1314000, "quantity": 2, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "034020", "name": "두산에너빌리티", "market": "KR", "price": 97300, "quantity": 21, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "068270", "name": "셀트리온", "market": "KR", "price": 203500, "quantity": 8, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "042660", "name": "한화오션", "market": "KR", "price": 121500, "quantity": 14, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "NVDA", "name": "NVIDIA", "market": "US", "price": 167.52, "quantity": 12, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "MSFT", "name": "Microsoft", "market": "US", "price": 356.77, "quantity": 5, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "GOOGL", "name": "Alphabet", "market": "US", "price": 274.34, "quantity": 8, "note": "포트폴리오 개시"},
+    {"date": "2026-03-29", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 300.68, "quantity": 5, "note": "포트폴리오 개시"}
+  ],
   "history": [
     {"date": "2026-03-29", "total": 100000000, "return_pct": 0.00, "note": "포트폴리오 개시"}
   ]
