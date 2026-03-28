@@ -360,7 +360,13 @@
     let livePrices = {};  // ticker -> { price, prev, updatedAt }
     let ws = null;
     let wsReconnectTimer = null;
-    let krPollTimer = null;
+    let pollTimer = null;
+    const POLL_INTERVAL = 30000; // 30s
+    const CORS_PROXIES = [
+      url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+      url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+    ];
+    let activeProxy = 0;
 
     function getApiKey() {
       return localStorage.getItem('finnhub_api_key') || '';
@@ -377,25 +383,31 @@
       overlay.className = 'modal-overlay';
       overlay.innerHTML = `
         <div class="modal">
-          <h3>Finnhub API Key 설정</h3>
-          <p>실시간 가격 업데이트를 위해 <a href="https://finnhub.io/register" target="_blank" style="color:#58a6ff">finnhub.io</a>에서 무료 API Key를 발급받으세요.<br>
-          US 종목: WebSocket 실시간<br>KR 종목: REST 60초 폴링</p>
-          <input type="text" id="api-key-input" placeholder="API Key 입력" value="${getApiKey()}">
+          <h3>Finnhub API Key 설정 (선택)</h3>
+          <p>기본: Yahoo Finance 30초 폴링 (API Key 불필요)<br>
+          업그레이드: <a href="https://finnhub.io/register" target="_blank" style="color:#58a6ff">finnhub.io</a> 무료 Key 입력 시 US 종목 WebSocket 실시간</p>
+          <input type="text" id="api-key-input" placeholder="Finnhub API Key (선택사항)" value="${getApiKey()}">
           <div class="modal-btns">
             <button class="btn-secondary" id="modal-cancel">취소</button>
-            <button class="btn-primary" id="modal-save">저장 및 연결</button>
+            <button class="btn-secondary" id="modal-clear">Key 삭제</button>
+            <button class="btn-primary" id="modal-save">저장</button>
           </div>
         </div>
       `;
       document.body.appendChild(overlay);
       overlay.querySelector('#modal-cancel').onclick = () => overlay.remove();
+      overlay.querySelector('#modal-clear').onclick = () => {
+        localStorage.removeItem('finnhub_api_key');
+        overlay.remove();
+        stopLivePrices();
+        startLivePrices();
+      };
       overlay.querySelector('#modal-save').onclick = () => {
         const key = overlay.querySelector('#api-key-input').value.trim();
-        if (key) {
-          setApiKey(key);
-          overlay.remove();
-          startLivePrices();
-        }
+        if (key) setApiKey(key); else localStorage.removeItem('finnhub_api_key');
+        overlay.remove();
+        stopLivePrices();
+        startLivePrices();
       };
       overlay.querySelector('#api-key-input').addEventListener('keydown', e => {
         if (e.key === 'Enter') overlay.querySelector('#modal-save').click();
@@ -403,12 +415,12 @@
       overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
     }
 
-    function updateBadge(state) {
+    function updateBadge(state, label) {
       const badge = document.getElementById('live-badge');
       const status = document.getElementById('live-status');
       badge.className = 'live-badge ' + state;
-      const labels = { connected: 'Live', disconnected: 'Offline', connecting: '연결 중...' };
-      status.textContent = labels[state] || state;
+      const defaults = { connected: 'Live', disconnected: 'Offline', connecting: '연결 중...' };
+      status.textContent = label || defaults[state] || state;
     }
 
     function updateTimestamp() {
@@ -419,7 +431,6 @@
     function applyLivePrices() {
       if (!portfolioData) return;
 
-      // Update current_price in portfolio data
       ['KR', 'US'].forEach(market => {
         portfolioData.holdings[market].forEach(h => {
           const key = market === 'US' ? h.ticker : h.ticker + '.KS';
@@ -434,7 +445,6 @@
       renderAlerts(portfolioData);
       updateTimestamp();
 
-      // Flash animation on updated rows
       const rows = document.querySelectorAll('#holdings-table tbody tr');
       const allHoldings = [...portfolioData.holdings.KR, ...portfolioData.holdings.US];
       rows.forEach((row, i) => {
@@ -445,13 +455,59 @@
         const live = livePrices[key];
         if (live && live.prev !== undefined && live.price !== live.prev) {
           row.classList.remove('price-up', 'price-down');
-          void row.offsetWidth; // trigger reflow
+          void row.offsetWidth;
           row.classList.add(live.price > live.prev ? 'price-up' : 'price-down');
         }
       });
     }
 
-    // WebSocket for US stocks
+    // ─── Yahoo Finance (no API key, CORS proxy) ───
+    async function fetchYahooQuote(symbol) {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=1d&interval=1d`;
+      for (let i = 0; i < CORS_PROXIES.length; i++) {
+        const proxyIdx = (activeProxy + i) % CORS_PROXIES.length;
+        try {
+          const res = await fetch(CORS_PROXIES[proxyIdx](url), { signal: AbortSignal.timeout(8000) });
+          if (!res.ok) continue;
+          const json = await res.json();
+          const meta = json?.chart?.result?.[0]?.meta;
+          if (meta?.regularMarketPrice && meta.regularMarketPrice > 0) {
+            activeProxy = proxyIdx;
+            return meta.regularMarketPrice;
+          }
+        } catch (e) { /* try next proxy */ }
+      }
+      return null;
+    }
+
+    async function pollYahooPrices() {
+      if (!portfolioData) return;
+      updateBadge('connecting', '갱신 중...');
+
+      const allSymbols = [
+        ...portfolioData.holdings.KR.map(h => ({ key: h.ticker + '.KS', symbol: h.ticker + '.KS' })),
+        ...portfolioData.holdings.US.map(h => ({ key: h.ticker, symbol: h.ticker }))
+      ];
+
+      let updated = 0;
+      await Promise.all(allSymbols.map(async ({ key, symbol }) => {
+        const price = await fetchYahooQuote(symbol);
+        if (price !== null) {
+          const prev = livePrices[key]?.price;
+          livePrices[key] = { price, prev, updatedAt: Date.now() };
+          updated++;
+        }
+      }));
+
+      if (updated > 0) {
+        applyLivePrices();
+        updateBadge('connected', `Yahoo ${updated}종목`);
+      } else {
+        updateBadge('disconnected', '갱신 실패');
+      }
+    }
+
+    // ─── Finnhub WebSocket (optional, US only) ───
     function connectWebSocket() {
       const apiKey = getApiKey();
       if (!apiKey) return;
@@ -459,11 +515,10 @@
       if (ws) { ws.close(); ws = null; }
       clearTimeout(wsReconnectTimer);
 
-      updateBadge('connecting');
       ws = new WebSocket(`wss://ws.finnhub.io?token=${apiKey}`);
 
       ws.onopen = () => {
-        updateBadge('connected');
+        updateBadge('connected', 'Live WS');
         portfolioData.holdings.US.forEach(h => {
           ws.send(JSON.stringify({ type: 'subscribe', symbol: h.ticker }));
         });
@@ -471,88 +526,42 @@
 
       ws.onmessage = (event) => {
         const msg = JSON.parse(event.data);
-        if (msg.type === 'trade' && msg.data && msg.data.length > 0) {
+        if (msg.type === 'trade' && msg.data?.length > 0) {
           let changed = false;
           msg.data.forEach(trade => {
             const sym = trade.s;
             const prev = livePrices[sym]?.price;
-            livePrices[sym] = { price: trade.p, prev: prev, updatedAt: Date.now() };
+            livePrices[sym] = { price: trade.p, prev, updatedAt: Date.now() };
             changed = true;
           });
           if (changed) applyLivePrices();
         }
       };
 
-      ws.onerror = () => {
-        updateBadge('disconnected');
-      };
-
+      ws.onerror = () => updateBadge('disconnected');
       ws.onclose = () => {
-        updateBadge('disconnected');
         wsReconnectTimer = setTimeout(connectWebSocket, 5000);
       };
     }
 
-    // REST polling for KR stocks
-    async function pollKRPrices() {
-      const apiKey = getApiKey();
-      if (!apiKey || !portfolioData) return;
-
-      const promises = portfolioData.holdings.KR.map(async h => {
-        const symbol = h.ticker + '.KS';
-        try {
-          const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`);
-          const data = await res.json();
-          if (data.c && data.c > 0) {
-            const prev = livePrices[symbol]?.price;
-            livePrices[symbol] = { price: data.c, prev: prev, updatedAt: Date.now() };
-          }
-        } catch (e) { /* skip on error */ }
-      });
-
-      await Promise.all(promises);
-      applyLivePrices();
-    }
-
-    // Also poll US stocks via REST as fallback (in case WebSocket has delays)
-    async function pollUSPrices() {
-      const apiKey = getApiKey();
-      if (!apiKey || !portfolioData) return;
-
-      const promises = portfolioData.holdings.US.map(async h => {
-        try {
-          const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${h.ticker}&token=${apiKey}`);
-          const data = await res.json();
-          if (data.c && data.c > 0 && !livePrices[h.ticker]) {
-            livePrices[h.ticker] = { price: data.c, prev: undefined, updatedAt: Date.now() };
-          }
-        } catch (e) { /* skip */ }
-      });
-
-      await Promise.all(promises);
-      applyLivePrices();
-    }
-
     function startLivePrices() {
-      if (!getApiKey()) return;
+      stopLivePrices();
 
-      // Initial REST fetch for all prices
-      pollKRPrices();
-      pollUSPrices();
+      // Always start Yahoo polling (works without API key)
+      pollYahooPrices();
+      pollTimer = setInterval(pollYahooPrices, POLL_INTERVAL);
 
-      // WebSocket for US real-time
-      connectWebSocket();
-
-      // KR polling every 60s
-      clearInterval(krPollTimer);
-      krPollTimer = setInterval(pollKRPrices, 60000);
+      // If Finnhub key exists, also connect WebSocket for real-time US
+      if (getApiKey()) {
+        connectWebSocket();
+      }
     }
 
     function stopLivePrices() {
       if (ws) { ws.close(); ws = null; }
       clearTimeout(wsReconnectTimer);
-      clearInterval(krPollTimer);
-      updateBadge('disconnected');
+      clearInterval(pollTimer);
+      pollTimer = null;
     }
 
     // ─── Init ───
@@ -564,20 +573,16 @@
       renderPerfChart(portfolioData);
       renderAllocChart(portfolioData);
 
-      // API Key button
       document.getElementById('api-key-btn').addEventListener('click', showApiKeyModal);
 
-      // Auto-connect if API key exists
-      if (getApiKey()) {
-        startLivePrices();
-      }
+      // Auto-start — Yahoo works without API key
+      startLivePrices();
     }
 
-    // Cleanup on page hide
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         stopLivePrices();
-      } else if (getApiKey()) {
+      } else {
         startLivePrices();
       }
     });
