@@ -3,21 +3,21 @@
   "initial_capital": 100000000,
   "currency": "KRW",
   "exchange_rate": 1505,
-  "cash": 76933795,
+  "cash": 75846524,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 922000, "quantity": 3, "target": 1500000, "stop_loss": 780000, "theme": "AI/HBM"},
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 907000, "quantity": 3, "target": 1500000, "stop_loss": 771000, "theme": "AI/HBM"},
       {"name": "삼성전자", "ticker": "005930", "buy_price": 179700, "quantity": 12, "target": 260000, "stop_loss": 153000, "theme": "AI/반도체"},
-      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1425000, "quantity": 2, "target": 1800000, "stop_loss": 1210000, "theme": "방산"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 98000, "quantity": 21, "target": 130000, "stop_loss": 83000, "theme": "원전/SMR"},
-      {"name": "셀트리온", "ticker": "068270", "buy_price": 180000, "quantity": 8, "target": 250000, "stop_loss": 153000, "theme": "바이오"},
-      {"name": "한화오션", "ticker": "042660", "buy_price": 105000, "quantity": 14, "target": 162000, "stop_loss": 89000, "theme": "조선"}
+      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1314000, "quantity": 2, "target": 1800000, "stop_loss": 1117000, "theme": "방산"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97300, "quantity": 21, "target": 130000, "stop_loss": 82700, "theme": "원전/SMR"},
+      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
+      {"name": "한화오션", "ticker": "042660", "buy_price": 121500, "quantity": 14, "target": 180000, "stop_loss": 103300, "theme": "조선"}
     ],
     "US": [
-      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 168.00, "quantity": 12, "target": 266, "stop_loss": 143, "theme": "AI 인프라"},
-      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 357.00, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
-      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 195.00, "quantity": 8, "target": 350, "stop_loss": 166, "theme": "대형기술+AI"},
-      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 300.00, "quantity": 5, "target": 431, "stop_loss": 255, "theme": "AI+보안"}
+      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 167.52, "quantity": 12, "target": 266, "stop_loss": 142, "theme": "AI 인프라"},
+      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
+      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 274.34, "quantity": 8, "target": 370, "stop_loss": 233, "theme": "대형기술+AI"},
+      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 300.68, "quantity": 5, "target": 431, "stop_loss": 256, "theme": "AI+보안"}
     ]
   },
   "history": [

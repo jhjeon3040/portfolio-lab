@@ -7,6 +7,12 @@ paper trading portfolio tracker with Wall Street analysis skills.
 - `/stock-analyst {종목}` — 월가 10대 기관 방법론 종합 분석
 - `/portfolio-builder` — 매크로→테마→종목 선정→포트폴리오 구성
 
+## Data Sources
+
+- 한국 주식 시세: **네이버 금융** (`finance.naver.com`)
+- 미국 주식 시세: **Yahoo Finance** (`query1.finance.yahoo.com`)
+- 대시보드 실시간: Yahoo Finance CORS proxy (기본) / Finnhub WebSocket (선택)
+
 ## Rules
 
 - 한국어로 출력
