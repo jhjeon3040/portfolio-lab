@@ -35,6 +35,33 @@
     .chart-container { width: 100%; height: 200px; position: relative; }
     canvas { width: 100% !important; height: 100% !important; }
     .footer { text-align: center; color: #484f58; font-size: 0.75rem; margin-top: 24px; padding: 16px; }
+    .live-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; }
+    .live-badge.connected { background: #1f3d2a; color: #3fb950; }
+    .live-badge.disconnected { background: #3d1f1f; color: #f85149; }
+    .live-badge.connecting { background: #3d3a1f; color: #f0e060; }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .live-badge.connected .live-dot { background: #3fb950; animation: pulse 2s infinite; }
+    .live-badge.disconnected .live-dot { background: #f85149; }
+    .live-badge.connecting .live-dot { background: #f0e060; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes flash-green { 0% { background: rgba(63,185,80,0.3); } 100% { background: transparent; } }
+    @keyframes flash-red { 0% { background: rgba(248,81,73,0.3); } 100% { background: transparent; } }
+    .price-up { animation: flash-green 0.8s ease-out; }
+    .price-down { animation: flash-red 0.8s ease-out; }
+    .header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .last-updated { font-size: 0.7rem; color: #484f58; }
+    .api-key-btn { background: #21262d; border: 1px solid #30363d; color: #7d8590; font-size: 0.7rem; padding: 3px 8px; border-radius: 6px; cursor: pointer; }
+    .api-key-btn:hover { border-color: #58a6ff; color: #58a6ff; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100; }
+    .modal { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; }
+    .modal h3 { margin-bottom: 12px; font-size: 1rem; }
+    .modal p { color: #7d8590; font-size: 0.8rem; margin-bottom: 16px; line-height: 1.5; }
+    .modal input { width: 100%; padding: 8px 12px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #e6edf3; font-size: 0.85rem; margin-bottom: 12px; }
+    .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+    .modal-btns button { padding: 6px 16px; border-radius: 6px; border: 1px solid #30363d; cursor: pointer; font-size: 0.8rem; }
+    .btn-primary { background: #238636; border-color: #238636 !important; color: #fff; }
+    .btn-secondary { background: #21262d; color: #7d8590; }
     .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; }
     .alert-warn { background: #3d2a1f; border: 1px solid #d29922; color: #e3b341; }
     .alert-target { background: #1f3d2a; border: 1px solid #238636; color: #3fb950; }
@@ -61,7 +88,17 @@
 </head>
 <body>
   <div class="container">
-    <h1>Portfolio Lab</h1>
+    <div class="header-row">
+      <h1>Portfolio Lab</h1>
+      <div class="header-right">
+        <span class="last-updated" id="last-updated"></span>
+        <span class="live-badge disconnected" id="live-badge">
+          <span class="live-dot"></span>
+          <span id="live-status">Offline</span>
+        </span>
+        <button class="api-key-btn" id="api-key-btn" title="Finnhub API Key 설정">API Key</button>
+      </div>
+    </div>
     <p class="subtitle">Wall Street Top 10 Paper Trading Dashboard</p>
 
     <div class="cards" id="summary-cards"></div>
@@ -318,14 +355,232 @@
       });
     }
 
-    async function init() {
-      const data = await loadData();
-      renderSummary(data);
-      renderHoldings(data);
-      renderAlerts(data);
-      renderPerfChart(data);
-      renderAllocChart(data);
+    // ─── Real-time Price Engine ───
+    let portfolioData = null;
+    let livePrices = {};  // ticker -> { price, prev, updatedAt }
+    let ws = null;
+    let wsReconnectTimer = null;
+    let krPollTimer = null;
+
+    function getApiKey() {
+      return localStorage.getItem('finnhub_api_key') || '';
     }
+
+    function setApiKey(key) {
+      localStorage.setItem('finnhub_api_key', key);
+    }
+
+    function showApiKeyModal() {
+      const existing = document.querySelector('.modal-overlay');
+      if (existing) existing.remove();
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal">
+          <h3>Finnhub API Key 설정</h3>
+          <p>실시간 가격 업데이트를 위해 <a href="https://finnhub.io/register" target="_blank" style="color:#58a6ff">finnhub.io</a>에서 무료 API Key를 발급받으세요.<br>
+          US 종목: WebSocket 실시간<br>KR 종목: REST 60초 폴링</p>
+          <input type="text" id="api-key-input" placeholder="API Key 입력" value="${getApiKey()}">
+          <div class="modal-btns">
+            <button class="btn-secondary" id="modal-cancel">취소</button>
+            <button class="btn-primary" id="modal-save">저장 및 연결</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      overlay.querySelector('#modal-cancel').onclick = () => overlay.remove();
+      overlay.querySelector('#modal-save').onclick = () => {
+        const key = overlay.querySelector('#api-key-input').value.trim();
+        if (key) {
+          setApiKey(key);
+          overlay.remove();
+          startLivePrices();
+        }
+      };
+      overlay.querySelector('#api-key-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') overlay.querySelector('#modal-save').click();
+      });
+      overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+    }
+
+    function updateBadge(state) {
+      const badge = document.getElementById('live-badge');
+      const status = document.getElementById('live-status');
+      badge.className = 'live-badge ' + state;
+      const labels = { connected: 'Live', disconnected: 'Offline', connecting: '연결 중...' };
+      status.textContent = labels[state] || state;
+    }
+
+    function updateTimestamp() {
+      const el = document.getElementById('last-updated');
+      el.textContent = '갱신: ' + new Date().toLocaleTimeString('ko-KR');
+    }
+
+    function applyLivePrices() {
+      if (!portfolioData) return;
+
+      // Update current_price in portfolio data
+      ['KR', 'US'].forEach(market => {
+        portfolioData.holdings[market].forEach(h => {
+          const key = market === 'US' ? h.ticker : h.ticker + '.KS';
+          if (livePrices[key]) {
+            h.current_price = livePrices[key].price;
+          }
+        });
+      });
+
+      renderSummary(portfolioData);
+      renderHoldings(portfolioData);
+      renderAlerts(portfolioData);
+      updateTimestamp();
+
+      // Flash animation on updated rows
+      const rows = document.querySelectorAll('#holdings-table tbody tr');
+      const allHoldings = [...portfolioData.holdings.KR, ...portfolioData.holdings.US];
+      rows.forEach((row, i) => {
+        if (i >= allHoldings.length) return;
+        const h = allHoldings[i];
+        const market = i < portfolioData.holdings.KR.length ? 'KR' : 'US';
+        const key = market === 'US' ? h.ticker : h.ticker + '.KS';
+        const live = livePrices[key];
+        if (live && live.prev !== undefined && live.price !== live.prev) {
+          row.classList.remove('price-up', 'price-down');
+          void row.offsetWidth; // trigger reflow
+          row.classList.add(live.price > live.prev ? 'price-up' : 'price-down');
+        }
+      });
+    }
+
+    // WebSocket for US stocks
+    function connectWebSocket() {
+      const apiKey = getApiKey();
+      if (!apiKey) return;
+
+      if (ws) { ws.close(); ws = null; }
+      clearTimeout(wsReconnectTimer);
+
+      updateBadge('connecting');
+      ws = new WebSocket(`wss://ws.finnhub.io?token=${apiKey}`);
+
+      ws.onopen = () => {
+        updateBadge('connected');
+        portfolioData.holdings.US.forEach(h => {
+          ws.send(JSON.stringify({ type: 'subscribe', symbol: h.ticker }));
+        });
+      };
+
+      ws.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'trade' && msg.data && msg.data.length > 0) {
+          let changed = false;
+          msg.data.forEach(trade => {
+            const sym = trade.s;
+            const prev = livePrices[sym]?.price;
+            livePrices[sym] = { price: trade.p, prev: prev, updatedAt: Date.now() };
+            changed = true;
+          });
+          if (changed) applyLivePrices();
+        }
+      };
+
+      ws.onerror = () => {
+        updateBadge('disconnected');
+      };
+
+      ws.onclose = () => {
+        updateBadge('disconnected');
+        wsReconnectTimer = setTimeout(connectWebSocket, 5000);
+      };
+    }
+
+    // REST polling for KR stocks
+    async function pollKRPrices() {
+      const apiKey = getApiKey();
+      if (!apiKey || !portfolioData) return;
+
+      const promises = portfolioData.holdings.KR.map(async h => {
+        const symbol = h.ticker + '.KS';
+        try {
+          const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`);
+          const data = await res.json();
+          if (data.c && data.c > 0) {
+            const prev = livePrices[symbol]?.price;
+            livePrices[symbol] = { price: data.c, prev: prev, updatedAt: Date.now() };
+          }
+        } catch (e) { /* skip on error */ }
+      });
+
+      await Promise.all(promises);
+      applyLivePrices();
+    }
+
+    // Also poll US stocks via REST as fallback (in case WebSocket has delays)
+    async function pollUSPrices() {
+      const apiKey = getApiKey();
+      if (!apiKey || !portfolioData) return;
+
+      const promises = portfolioData.holdings.US.map(async h => {
+        try {
+          const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${h.ticker}&token=${apiKey}`);
+          const data = await res.json();
+          if (data.c && data.c > 0 && !livePrices[h.ticker]) {
+            livePrices[h.ticker] = { price: data.c, prev: undefined, updatedAt: Date.now() };
+          }
+        } catch (e) { /* skip */ }
+      });
+
+      await Promise.all(promises);
+      applyLivePrices();
+    }
+
+    function startLivePrices() {
+      if (!getApiKey()) return;
+
+      // Initial REST fetch for all prices
+      pollKRPrices();
+      pollUSPrices();
+
+      // WebSocket for US real-time
+      connectWebSocket();
+
+      // KR polling every 60s
+      clearInterval(krPollTimer);
+      krPollTimer = setInterval(pollKRPrices, 60000);
+    }
+
+    function stopLivePrices() {
+      if (ws) { ws.close(); ws = null; }
+      clearTimeout(wsReconnectTimer);
+      clearInterval(krPollTimer);
+      updateBadge('disconnected');
+    }
+
+    // ─── Init ───
+    async function init() {
+      portfolioData = await loadData();
+      renderSummary(portfolioData);
+      renderHoldings(portfolioData);
+      renderAlerts(portfolioData);
+      renderPerfChart(portfolioData);
+      renderAllocChart(portfolioData);
+
+      // API Key button
+      document.getElementById('api-key-btn').addEventListener('click', showApiKeyModal);
+
+      // Auto-connect if API key exists
+      if (getApiKey()) {
+        startLivePrices();
+      }
+    }
+
+    // Cleanup on page hide
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopLivePrices();
+      } else if (getApiKey()) {
+        startLivePrices();
+      }
+    });
 
     init();
   </script>
