@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Lab</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #e6edf3; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 1.6rem; margin-bottom: 4px; }
+    .subtitle { color: #7d8590; font-size: 0.85rem; margin-bottom: 24px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+    .card-label { font-size: 0.75rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-value { font-size: 1.5rem; font-weight: 700; margin-top: 4px; }
+    .positive { color: #3fb950; }
+    .negative { color: #f85149; }
+    .neutral { color: #e6edf3; }
+    .section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+    .section-title { font-size: 1rem; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 8px 12px; color: #7d8590; border-bottom: 1px solid #30363d; font-weight: 500; }
+    td { padding: 8px 12px; border-bottom: 1px solid #21262d; }
+    tr:hover { background: #1c2128; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 500; }
+    .tag-ai { background: #1f3a5f; color: #58a6ff; }
+    .tag-defense { background: #3d1f1f; color: #f8a0a0; }
+    .tag-nuclear { background: #3d3a1f; color: #f0e060; }
+    .tag-bio { background: #1f3d2a; color: #56d364; }
+    .tag-tech { background: #2d1f3d; color: #bc8cff; }
+    .tag-ship { background: #1f2d3d; color: #79c0ff; }
+    .bar-bg { background: #21262d; border-radius: 4px; height: 8px; width: 100%; position: relative; }
+    .bar-fill { height: 8px; border-radius: 4px; position: absolute; top: 0; left: 0; }
+    .chart-container { width: 100%; height: 200px; position: relative; }
+    canvas { width: 100% !important; height: 100% !important; }
+    .footer { text-align: center; color: #484f58; font-size: 0.75rem; margin-top: 24px; padding: 16px; }
+    .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; }
+    .alert-warn { background: #3d2a1f; border: 1px solid #d29922; color: #e3b341; }
+    .alert-target { background: #1f3d2a; border: 1px solid #238636; color: #3fb950; }
+    .progress-ring { display: flex; align-items: center; gap: 12px; }
+    @media (max-width: 768px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      table { font-size: 0.75rem; }
+      th, td { padding: 6px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Portfolio Lab</h1>
+    <p class="subtitle">Wall Street Top 10 Paper Trading Dashboard</p>
+
+    <div class="cards" id="summary-cards"></div>
+    <div id="alerts"></div>
+
+    <div class="section">
+      <div class="section-title">Performance</div>
+      <div class="chart-container"><canvas id="perfChart"></canvas></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Holdings</div>
+      <table id="holdings-table">
+        <thead>
+          <tr><th>종목</th><th>테마</th><th>수량</th><th>매수가</th><th>현재가</th><th>수익률</th><th>목표 진행률</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Allocation</div>
+      <canvas id="allocChart" height="200"></canvas>
+    </div>
+
+    <div class="footer">
+      Portfolio Lab &mdash; AI Paper Trading Tracker<br>
+      Auto-updated daily by Claude Code Scheduled Agent
+    </div>
+  </div>
+
+  <script>
+    const THEME_TAGS = {
+      'AI/HBM': 'tag-ai', 'AI/반도체': 'tag-ai', 'AI 인프라': 'tag-ai', 'AI+보안': 'tag-ai',
+      '방산': 'tag-defense', '원전/SMR': 'tag-nuclear', '바이오': 'tag-bio',
+      '대형기술': 'tag-tech', '대형기술+AI': 'tag-tech', '조선': 'tag-ship'
+    };
+
+    async function loadData() {
+      const res = await fetch('data/portfolio.json');
+      return res.json();
+    }
+
+    function formatKRW(n) {
+      if (n >= 1e8) return (n / 1e8).toFixed(1) + '억';
+      if (n >= 1e4) return (n / 1e4).toFixed(0) + '만';
+      return n.toLocaleString();
+    }
+
+    function formatPrice(n, market) {
+      if (market === 'US') return '$' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      return n.toLocaleString() + '원';
+    }
+
+    function renderSummary(data) {
+      const latest = data.history[data.history.length - 1];
+      const totalInvested = data.initial_capital - data.cash;
+      const returnClass = latest.return_pct >= 0 ? 'positive' : 'negative';
+      const returnSign = latest.return_pct >= 0 ? '+' : '';
+      const krCount = data.holdings.KR.length;
+      const usCount = data.holdings.US.length;
+
+      document.getElementById('summary-cards').innerHTML = `
+        <div class="card">
+          <div class="card-label">총 자산</div>
+          <div class="card-value neutral">${formatKRW(latest.total)}원</div>
+        </div>
+        <div class="card">
+          <div class="card-label">수익률</div>
+          <div class="card-value ${returnClass}">${returnSign}${latest.return_pct.toFixed(2)}%</div>
+        </div>
+        <div class="card">
+          <div class="card-label">투자금 / 현금</div>
+          <div class="card-value neutral">${formatKRW(totalInvested)} / ${formatKRW(data.cash)}</div>
+        </div>
+        <div class="card">
+          <div class="card-label">종목 수</div>
+          <div class="card-value neutral">KR ${krCount} + US ${usCount}</div>
+        </div>
+      `;
+    }
+
+    function renderHoldings(data) {
+      const tbody = document.querySelector('#holdings-table tbody');
+      const rows = [];
+
+      function addRows(holdings, market) {
+        holdings.forEach(h => {
+          const currentPrice = h.current_price || h.buy_price;
+          const pnl = ((currentPrice / h.buy_price) - 1) * 100;
+          const pnlClass = pnl >= 0 ? 'positive' : 'negative';
+          const pnlSign = pnl >= 0 ? '+' : '';
+          const targetProgress = Math.min(100, Math.max(0, ((currentPrice - h.buy_price) / (h.target - h.buy_price)) * 100));
+          const barColor = pnl >= 0 ? '#3fb950' : '#f85149';
+          const tagClass = THEME_TAGS[h.theme] || 'tag-ai';
+
+          rows.push(`<tr>
+            <td><strong>${h.name}</strong><br><span style="color:#7d8590;font-size:0.75rem">${h.ticker}</span></td>
+            <td><span class="tag ${tagClass}">${h.theme}</span></td>
+            <td>${h.quantity}</td>
+            <td>${formatPrice(h.buy_price, market)}</td>
+            <td>${formatPrice(currentPrice, market)}</td>
+            <td class="${pnlClass}">${pnlSign}${pnl.toFixed(1)}%</td>
+            <td style="min-width:100px">
+              <div class="bar-bg"><div class="bar-fill" style="width:${Math.abs(targetProgress)}%;background:${barColor}"></div></div>
+            </td>
+          </tr>`);
+        });
+      }
+
+      addRows(data.holdings.KR, 'KR');
+      addRows(data.holdings.US, 'US');
+      tbody.innerHTML = rows.join('');
+    }
+
+    function renderAlerts(data) {
+      const container = document.getElementById('alerts');
+      const alerts = [];
+      const all = [...data.holdings.KR, ...data.holdings.US];
+
+      all.forEach(h => {
+        const current = h.current_price || h.buy_price;
+        const pnl = ((current / h.buy_price) - 1) * 100;
+        if (pnl <= -15) alerts.push(`<div class="alert alert-warn">⚠️ STOP LOSS — ${h.name} (${pnl.toFixed(1)}%)</div>`);
+        if (current >= h.target) alerts.push(`<div class="alert alert-target">🎯 TARGET HIT — ${h.name} (${formatPrice(current, h.ticker.length <= 4 ? 'US' : 'KR')})</div>`);
+      });
+
+      container.innerHTML = alerts.join('');
+    }
+
+    function renderPerfChart(data) {
+      const canvas = document.getElementById('perfChart');
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * 2;
+      canvas.height = rect.height * 2;
+      ctx.scale(2, 2);
+      const w = rect.width, h = rect.height;
+
+      const history = data.history;
+      if (history.length < 2) {
+        ctx.fillStyle = '#7d8590';
+        ctx.font = '14px -apple-system';
+        ctx.textAlign = 'center';
+        ctx.fillText('Performance chart will appear after 2+ data points', w/2, h/2);
+        return;
+      }
+
+      const values = history.map(d => d.return_pct);
+      const minV = Math.min(0, ...values) - 1;
+      const maxV = Math.max(0, ...values) + 1;
+      const pad = { t: 20, r: 20, b: 30, l: 50 };
+      const cw = w - pad.l - pad.r;
+      const ch = h - pad.t - pad.b;
+
+      // Grid
+      ctx.strokeStyle = '#21262d';
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i <= 4; i++) {
+        const y = pad.t + (ch / 4) * i;
+        ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(w - pad.r, y); ctx.stroke();
+        const val = maxV - ((maxV - minV) / 4) * i;
+        ctx.fillStyle = '#7d8590'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
+        ctx.fillText(val.toFixed(1) + '%', pad.l - 8, y + 4);
+      }
+
+      // Zero line
+      const zeroY = pad.t + ((maxV - 0) / (maxV - minV)) * ch;
+      ctx.strokeStyle = '#30363d'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(pad.l, zeroY); ctx.lineTo(w - pad.r, zeroY); ctx.stroke();
+
+      // Line
+      ctx.beginPath();
+      ctx.strokeStyle = '#58a6ff'; ctx.lineWidth = 2;
+      values.forEach((v, i) => {
+        const x = pad.l + (i / (values.length - 1)) * cw;
+        const y = pad.t + ((maxV - v) / (maxV - minV)) * ch;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Gradient fill
+      const grad = ctx.createLinearGradient(0, pad.t, 0, h - pad.b);
+      grad.addColorStop(0, 'rgba(88,166,255,0.15)');
+      grad.addColorStop(1, 'rgba(88,166,255,0)');
+      ctx.lineTo(pad.l + cw, zeroY);
+      ctx.lineTo(pad.l, zeroY);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Date labels
+      ctx.fillStyle = '#7d8590'; ctx.font = '10px -apple-system'; ctx.textAlign = 'center';
+      const step = Math.max(1, Math.floor(history.length / 6));
+      history.forEach((d, i) => {
+        if (i % step === 0 || i === history.length - 1) {
+          const x = pad.l + (i / (values.length - 1)) * cw;
+          ctx.fillText(d.date.slice(5), x, h - 8);
+        }
+      });
+    }
+
+    function renderAllocChart(data) {
+      const canvas = document.getElementById('allocChart');
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth * 2;
+      canvas.height = 400;
+      ctx.scale(2, 2);
+      const w = canvas.parentElement.clientWidth, h = 200;
+
+      const items = [];
+      data.holdings.KR.forEach(h => {
+        items.push({ name: h.name, value: h.buy_price * h.quantity, theme: h.theme });
+      });
+      data.holdings.US.forEach(h => {
+        items.push({ name: h.name, value: h.buy_price * h.quantity * data.exchange_rate, theme: h.theme });
+      });
+      items.push({ name: '현금', value: data.cash, theme: 'cash' });
+
+      const total = items.reduce((s, i) => s + i.value, 0);
+      const colors = ['#58a6ff','#3fb950','#bc8cff','#f0e060','#f8a0a0','#79c0ff','#ff7b72','#d2a8ff','#56d364','#ffa657','#484f58'];
+
+      let startAngle = -Math.PI / 2;
+      const cx = w * 0.3, cy = h / 2, r = 70;
+
+      items.forEach((item, i) => {
+        const slice = (item.value / total) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, startAngle, startAngle + slice);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+        startAngle += slice;
+      });
+
+      // Donut hole
+      ctx.beginPath();
+      ctx.arc(cx, cy, 40, 0, Math.PI * 2);
+      ctx.fillStyle = '#161b22';
+      ctx.fill();
+
+      // Legend
+      let ly = 20;
+      ctx.font = '12px -apple-system';
+      items.forEach((item, i) => {
+        const pct = ((item.value / total) * 100).toFixed(1);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fillRect(w * 0.6, ly, 12, 12);
+        ctx.fillStyle = '#e6edf3';
+        ctx.textAlign = 'left';
+        ctx.fillText(`${item.name}  ${pct}%`, w * 0.6 + 20, ly + 10);
+        ly += 20;
+      });
+    }
+
+    async function init() {
+      const data = await loadData();
+      renderSummary(data);
+      renderHoldings(data);
+      renderAlerts(data);
+      renderPerfChart(data);
+      renderAllocChart(data);
+    }
+
+    init();
+  </script>
+</body>
+</html>
