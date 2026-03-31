@@ -6,12 +6,12 @@
   "cash": 75846524,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 907000, "current_price": 922000, "quantity": 3, "target": 1500000, "stop_loss": 771000, "theme": "AI/HBM"},
-      {"name": "삼성전자", "ticker": "005930", "buy_price": 179700, "current_price": 179700, "quantity": 12, "target": 260000, "stop_loss": 153000, "theme": "AI/반도체"},
-      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1314000, "current_price": 1314000, "quantity": 2, "target": 1800000, "stop_loss": 1117000, "theme": "방산"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97300, "current_price": 98100, "quantity": 21, "target": 130000, "stop_loss": 82700, "theme": "원전/SMR"},
-      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 203500, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
-      {"name": "한화오션", "ticker": "042660", "buy_price": 121500, "current_price": 123200, "quantity": 14, "target": 180000, "stop_loss": 103300, "theme": "조선"}
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 907000, "current_price": 873000, "quantity": 3, "target": 1500000, "stop_loss": 771000, "theme": "AI/HBM"},
+      {"name": "삼성전자", "ticker": "005930", "buy_price": 179700, "current_price": 176300, "quantity": 12, "target": 260000, "stop_loss": 153000, "theme": "AI/반도체"},
+      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1314000, "current_price": 1305000, "quantity": 2, "target": 1800000, "stop_loss": 1117000, "theme": "방산"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97300, "current_price": 92700, "quantity": 21, "target": 130000, "stop_loss": 82700, "theme": "원전/SMR"},
+      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 180000, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
+      {"name": "한화오션", "ticker": "042660", "buy_price": 121500, "current_price": 118200, "quantity": 14, "target": 180000, "stop_loss": 103300, "theme": "조선"}
     ],
     "US": [
       {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 167.52, "current_price": 167.52, "quantity": 12, "target": 266, "stop_loss": 142, "theme": "AI 인프라"},
@@ -34,6 +34,7 @@
   ],
   "history": [
     {"date": "2026-03-29", "total": 100000000, "return_pct": 0.00, "note": "포트폴리오 개시"},
-    {"date": "2026-03-30", "total": 100040647, "return_pct": 0.04, "note": "3/27 종가 기준. 환율 1,499. VIX 31.05. 삼성전자 배당락일. 주간분석: 현금유지 관망."}
+    {"date": "2026-03-30", "total": 100040647, "return_pct": 0.04, "note": "3/27 종가 기준. 환율 1,499. VIX 31.05. 삼성전자 배당락일. 주간분석: 현금유지 관망."},
+    {"date": "2026-03-31", "total": 99463447, "return_pct": -0.54, "note": "3/30 한국 종가 기준. 코스피 5,277(-2.97%). 중동 전쟁 격화+터보퀀트 여파. 셀트리온 -11.5% 주의."}
   ]
 }
