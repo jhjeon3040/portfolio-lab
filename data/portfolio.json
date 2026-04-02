@@ -2,22 +2,22 @@
   "start_date": "2026-03-29",
   "initial_capital": 100000000,
   "currency": "KRW",
-  "exchange_rate": 1530,
+  "exchange_rate": 1501,
   "cash": 75846524,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 907000, "current_price": 828000, "quantity": 3, "target": 1500000, "stop_loss": 771000, "theme": "AI/HBM"},
-      {"name": "삼성전자", "ticker": "005930", "buy_price": 179700, "current_price": 167200, "quantity": 12, "target": 260000, "stop_loss": 153000, "theme": "AI/반도체"},
-      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1314000, "current_price": 1249000, "quantity": 2, "target": 1800000, "stop_loss": 1117000, "theme": "방산"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97300, "current_price": 91200, "quantity": 21, "target": 130000, "stop_loss": 82700, "theme": "원전/SMR"},
-      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 172000, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
-      {"name": "한화오션", "ticker": "042660", "buy_price": 121500, "current_price": 113000, "quantity": 14, "target": 180000, "stop_loss": 103300, "theme": "조선"}
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 907000, "current_price": 893000, "quantity": 3, "target": 1500000, "stop_loss": 771000, "theme": "AI/HBM"},
+      {"name": "삼성전자", "ticker": "005930", "buy_price": 179700, "current_price": 184400, "quantity": 12, "target": 260000, "stop_loss": 153000, "theme": "AI/반도체"},
+      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1314000, "current_price": 1333000, "quantity": 2, "target": 1800000, "stop_loss": 1117000, "theme": "방산"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97300, "current_price": 99900, "quantity": 21, "target": 130000, "stop_loss": 82700, "theme": "원전/SMR"},
+      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 202500, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
+      {"name": "한화오션", "ticker": "042660", "buy_price": 121500, "current_price": 126700, "quantity": 14, "target": 180000, "stop_loss": 103300, "theme": "조선"}
     ],
     "US": [
-      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 167.52, "current_price": 170.85, "quantity": 12, "target": 266, "stop_loss": 142, "theme": "AI 인프라"},
-      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 367.00, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
-      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 274.34, "current_price": 282.23, "quantity": 8, "target": 370, "stop_loss": 233, "theme": "대형기술+AI"},
-      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 300.68, "current_price": 309.66, "quantity": 5, "target": 431, "stop_loss": 256, "theme": "AI+보안"}
+      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 167.52, "current_price": 176.00, "quantity": 12, "target": 266, "stop_loss": 142, "theme": "AI 인프라"},
+      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 383.00, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
+      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 274.34, "current_price": 294.37, "quantity": 8, "target": 370, "stop_loss": 233, "theme": "대형기술+AI"},
+      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 300.68, "current_price": 313.70, "quantity": 5, "target": 431, "stop_loss": 256, "theme": "AI+보안"}
     ]
   },
   "trades": [
@@ -36,6 +36,7 @@
     {"date": "2026-03-29", "total": 100000000, "return_pct": 0.00, "note": "포트폴리오 개시"},
     {"date": "2026-03-30", "total": 100040647, "return_pct": 0.04, "note": "3/27 종가 기준. 환율 1,499. VIX 31.05. 삼성전자 배당락일. 주간분석: 현금유지 관망."},
     {"date": "2026-03-31", "total": 99463447, "return_pct": -0.54, "note": "3/30 한국 종가 기준. 코스피 5,277(-2.97%). 중동 전쟁 격화+터보퀀트 여파. 셀트리온 -11.5% 주의."},
-    {"date": "2026-04-01", "total": 99475874, "return_pct": -0.52, "note": "3/31 종가 기준. KOSPI 5,052(-4.26%), 원/달러 1,530. 한국 폭락(SK하이닉스-5.2%, 삼전-5.2%) vs 미국 반등(NVDA+5.6%). 셀트리온 -15.5% 손절선 근접. 4/1 개장 +5.49% 반등 중."}
+    {"date": "2026-04-01", "total": 99475874, "return_pct": -0.52, "note": "3/31 종가 기준. KOSPI 5,052(-4.26%), 원/달러 1,530. 한국 폭락(SK하이닉스-5.2%, 삼전-5.2%) vs 미국 반등(NVDA+5.6%). 셀트리온 -15.5% 손절선 근접. 4/1 개장 +5.49% 반등 중."},
+    {"date": "2026-04-02", "total": 100829665, "return_pct": 0.83, "note": "4/1 종가 기준. KOSPI 5,479(+8.44% 역대 2위 반등). 종전 기대감. 삼전+13.4%, SK하이닉스+10.7%. 원/달러 1,501. 전 종목 안전. 관세 업데이트 당일."}
   ]
 }
