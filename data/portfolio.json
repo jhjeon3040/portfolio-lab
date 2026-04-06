@@ -2,22 +2,22 @@
   "start_date": "2026-03-29",
   "initial_capital": 100000000,
   "currency": "KRW",
-  "exchange_rate": 1510,
-  "cash": 75846524,
+  "exchange_rate": 1515,
+  "cash": 63801524,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 907000, "current_price": 876000, "quantity": 3, "target": 1500000, "stop_loss": 771000, "theme": "AI/HBM"},
-      {"name": "삼성전자", "ticker": "005930", "buy_price": 179700, "current_price": 183850, "quantity": 12, "target": 260000, "stop_loss": 153000, "theme": "AI/반도체"},
-      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1314000, "current_price": 1400000, "quantity": 2, "target": 1800000, "stop_loss": 1117000, "theme": "방산"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97300, "current_price": 93600, "quantity": 21, "target": 130000, "stop_loss": 82700, "theme": "원전/SMR"},
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 891500, "current_price": 876000, "quantity": 6, "target": 1500000, "stop_loss": 758000, "theme": "AI/HBM"},
+      {"name": "삼성전자", "ticker": "005930", "buy_price": 182655, "current_price": 186200, "quantity": 22, "target": 260000, "stop_loss": 155000, "theme": "AI/반도체"},
+      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1359000, "current_price": 1449000, "quantity": 3, "target": 1800000, "stop_loss": 1155000, "theme": "방산"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 96925, "current_price": 96400, "quantity": 36, "target": 130000, "stop_loss": 82400, "theme": "원전/SMR"},
       {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 211500, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
-      {"name": "한화오션", "ticker": "042660", "buy_price": 121500, "current_price": 127200, "quantity": 14, "target": 180000, "stop_loss": 103300, "theme": "조선"}
+      {"name": "한화오션", "ticker": "042660", "buy_price": 123864, "current_price": 128000, "quantity": 22, "target": 180000, "stop_loss": 105000, "theme": "조선"}
     ],
     "US": [
-      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 167.52, "current_price": 177.39, "quantity": 12, "target": 266, "stop_loss": 142, "theme": "AI 인프라"},
-      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 373.46, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
-      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 274.34, "current_price": 294.50, "quantity": 8, "target": 370, "stop_loss": 233, "theme": "대형기술+AI"},
-      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 300.68, "current_price": 313.05, "quantity": 5, "target": 431, "stop_loss": 256, "theme": "AI+보안"}
+      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 170.22, "current_price": 176.70, "quantity": 17, "target": 266, "stop_loss": 145, "theme": "AI 인프라"},
+      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 373.40, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
+      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 280.19, "current_price": 295.80, "quantity": 11, "target": 370, "stop_loss": 238, "theme": "대형기술+AI"},
+      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 304.64, "current_price": 314.55, "quantity": 7, "target": 431, "stop_loss": 259, "theme": "AI+보안"}
     ]
   },
   "trades": [
@@ -30,7 +30,15 @@
     {"date": "2026-03-29", "type": "BUY", "ticker": "NVDA", "name": "NVIDIA", "market": "US", "price": 167.52, "quantity": 12, "note": "포트폴리오 개시"},
     {"date": "2026-03-29", "type": "BUY", "ticker": "MSFT", "name": "Microsoft", "market": "US", "price": 356.77, "quantity": 5, "note": "포트폴리오 개시"},
     {"date": "2026-03-29", "type": "BUY", "ticker": "GOOGL", "name": "Alphabet", "market": "US", "price": 274.34, "quantity": 8, "note": "포트폴리오 개시"},
-    {"date": "2026-03-29", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 300.68, "quantity": 5, "note": "포트폴리오 개시"}
+    {"date": "2026-03-29", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 300.68, "quantity": 5, "note": "포트폴리오 개시"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "000660", "name": "SK하이닉스", "market": "KR", "price": 876000, "quantity": 3, "note": "부분 2차 매수: ADR 모멘텀, 1Q 37조 영업익 전망"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "005930", "name": "삼성전자", "market": "KR", "price": 186200, "quantity": 10, "note": "부분 2차 매수: 1Q 40조 영업익, 반도체 수출 호조"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "012450", "name": "한화에어로스페이스", "market": "KR", "price": 1449000, "quantity": 1, "note": "부분 2차 매수: 수주잔고 31조, 중동전쟁+환율 수혜"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "034020", "name": "두산에너빌리티", "market": "KR", "price": 96400, "quantity": 15, "note": "부분 2차 매수: 호르무즈 봉쇄→원전 부각, SMR 착공"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "042660", "name": "한화오션", "market": "KR", "price": 128000, "quantity": 8, "note": "부분 2차 매수: 방산+조선 시너지, 외국인 매수세"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "NVDA", "name": "NVIDIA", "market": "US", "price": 176.70, "quantity": 5, "note": "부분 2차 매수: AI 인프라 핵심, Marvell $2B 투자"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "GOOGL", "name": "Alphabet", "market": "US", "price": 295.80, "quantity": 3, "note": "부분 2차 매수: 4/24 실적 기대, AI 검색 수혜"},
+    {"date": "2026-04-06", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 314.55, "quantity": 2, "note": "부분 2차 매수: AI+보안, VMware 시너지"}
   ],
   "history": [
     {"date": "2026-03-29", "total": 100000000, "return_pct": 0.00, "note": "포트폴리오 개시"},
@@ -39,6 +47,7 @@
     {"date": "2026-04-01", "total": 99475874, "return_pct": -0.52, "note": "3/31 종가 기준. KOSPI 5,052(-4.26%), 원/달러 1,530. 한국 폭락(SK하이닉스-5.2%, 삼전-5.2%) vs 미국 반등(NVDA+5.6%). 셀트리온 -15.5% 손절선 근접. 4/1 개장 +5.49% 반등 중."},
     {"date": "2026-04-02", "total": 100829665, "return_pct": 0.83, "note": "4/1 종가 기준. KOSPI 5,479(+8.44% 역대 2위 반등). 종전 기대감. 삼전+13.4%, SK하이닉스+10.7%. 원/달러 1,501. 전 종목 안전. 관세 업데이트 당일."},
     {"date": "2026-04-04", "total": 100874142, "return_pct": 0.87, "note": "4/3 한국 종가 + 4/2 미국 종가 기준 (Good Friday 미국 휴장). 원/달러 1,510. SK하이닉스 876,000(+5.54%), 삼전 183,850, 셀트리온 211,500(+7.14%). 4/2 관세 발표 후 한국장 반등. 전 종목 안전. 4/4(토) 양시장 휴장."},
-    {"date": "2026-04-05", "total": 100874142, "return_pct": 0.87, "note": "휴장 (일요일). 양시장 휴장. 내일(4/6 월) 한국+미국 개장. 주간분석 예정."}
+    {"date": "2026-04-05", "total": 100874142, "return_pct": 0.87, "note": "휴장 (일요일). 양시장 휴장. 내일(4/6 월) 한국+미국 개장. 주간분석 예정."},
+    {"date": "2026-04-06", "total": 101124047, "return_pct": 1.12, "note": "4/3 한국 종가 + 4/2 미국 종가 기준 (가격 보정 반영). 원/달러 1,515. KOSPI 5,377(+2.74%). 부분 2차 매수 실행(12,045,001원, 8종목). 한화에어로 1,449,000(+10.3%), GOOGL +7.8%. 전 종목 안전. 주간분석 포함."}
   ]
 }
