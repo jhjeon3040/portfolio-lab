@@ -2,22 +2,22 @@
   "start_date": "2026-03-29",
   "initial_capital": 100000000,
   "currency": "KRW",
-  "exchange_rate": 1515,
-  "cash": 63801524,
+  "exchange_rate": 1510,
+  "cash": 62795864,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 891500, "current_price": 913000, "quantity": 6, "target": 1500000, "stop_loss": 758000, "theme": "AI/HBM"},
-      {"name": "삼성전자", "ticker": "005930", "buy_price": 182655, "current_price": 204000, "quantity": 22, "target": 260000, "stop_loss": 155000, "theme": "AI/반도체"},
-      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1359000, "current_price": 1460000, "quantity": 3, "target": 1800000, "stop_loss": 1155000, "theme": "방산"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 96925, "current_price": 98000, "quantity": 36, "target": 130000, "stop_loss": 82400, "theme": "원전/SMR"},
-      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 216000, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
-      {"name": "한화오션", "ticker": "042660", "buy_price": 123864, "current_price": 132000, "quantity": 22, "target": 180000, "stop_loss": 105000, "theme": "조선"}
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 891500, "current_price": 920000, "quantity": 6, "target": 1500000, "stop_loss": 758000, "theme": "AI/HBM"},
+      {"name": "삼성전자", "ticker": "005930", "buy_price": 182655, "current_price": 195000, "quantity": 22, "target": 260000, "stop_loss": 155000, "theme": "AI/반도체"},
+      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1359000, "current_price": 1550000, "quantity": 3, "target": 1800000, "stop_loss": 1155000, "theme": "방산"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 96925, "current_price": 100000, "quantity": 36, "target": 130000, "stop_loss": 82400, "theme": "원전/SMR"},
+      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 218000, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
+      {"name": "한화오션", "ticker": "042660", "buy_price": 123864, "current_price": 135000, "quantity": 22, "target": 180000, "stop_loss": 105000, "theme": "조선"}
     ],
     "US": [
-      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 170.22, "current_price": 178.00, "quantity": 17, "target": 266, "stop_loss": 145, "theme": "AI 인프라"},
-      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 373.40, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
-      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 280.19, "current_price": 300.00, "quantity": 11, "target": 370, "stop_loss": 238, "theme": "대형기술+AI"},
-      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 304.64, "current_price": 313.52, "quantity": 7, "target": 431, "stop_loss": 259, "theme": "AI+보안"}
+      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 170.22, "current_price": 177.64, "quantity": 17, "target": 266, "stop_loss": 145, "theme": "AI 인프라"},
+      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 371.00, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
+      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 280.19, "current_price": 302.62, "quantity": 11, "target": 370, "stop_loss": 238, "theme": "대형기술+AI"},
+      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 310.94, "current_price": 333.00, "quantity": 9, "target": 431, "stop_loss": 259, "theme": "AI+보안"}
     ]
   },
   "trades": [
@@ -38,7 +38,8 @@
     {"date": "2026-04-06", "type": "BUY", "ticker": "042660", "name": "한화오션", "market": "KR", "price": 128000, "quantity": 8, "note": "부분 2차 매수: 방산+조선 시너지, 외국인 매수세"},
     {"date": "2026-04-06", "type": "BUY", "ticker": "NVDA", "name": "NVIDIA", "market": "US", "price": 176.70, "quantity": 5, "note": "부분 2차 매수: AI 인프라 핵심, Marvell $2B 투자"},
     {"date": "2026-04-06", "type": "BUY", "ticker": "GOOGL", "name": "Alphabet", "market": "US", "price": 295.80, "quantity": 3, "note": "부분 2차 매수: 4/24 실적 기대, AI 검색 수혜"},
-    {"date": "2026-04-06", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 314.55, "quantity": 2, "note": "부분 2차 매수: AI+보안, VMware 시너지"}
+    {"date": "2026-04-06", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 314.55, "quantity": 2, "note": "부분 2차 매수: AI+보안, VMware 시너지"},
+    {"date": "2026-04-08", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 333.00, "quantity": 2, "note": "추가매수: Google 5년 TPU Ironwood 딜 + Anthropic 3.5GW AI칩 딜. 매출 가시성 $21B(2026)/$42B(2027) 확보"}
   ],
   "history": [
     {"date": "2026-03-29", "total": 100000000, "return_pct": 0.00, "note": "포트폴리오 개시"},
@@ -49,6 +50,7 @@
     {"date": "2026-04-04", "total": 100874142, "return_pct": 0.87, "note": "4/3 한국 종가 + 4/2 미국 종가 기준 (Good Friday 미국 휴장). 원/달러 1,510. SK하이닉스 876,000(+5.54%), 삼전 183,850, 셀트리온 211,500(+7.14%). 4/2 관세 발표 후 한국장 반등. 전 종목 안전. 4/4(토) 양시장 휴장."},
     {"date": "2026-04-05", "total": 100874142, "return_pct": 0.87, "note": "휴장 (일요일). 양시장 휴장. 내일(4/6 월) 한국+미국 개장. 주간분석 예정."},
     {"date": "2026-04-06", "total": 101124047, "return_pct": 1.12, "note": "4/3 한국 종가 + 4/2 미국 종가 기준 (가격 보정 반영). 원/달러 1,515. KOSPI 5,377(+2.74%). 부분 2차 매수 실행(12,045,001원, 8종목). 한화에어로 1,449,000(+10.3%), GOOGL +7.8%. 전 종목 안전. 주간분석 포함."},
-    {"date": "2026-04-07", "total": 102044799, "return_pct": 2.04, "note": "4/7 한국 종가(추정) + 4/6 미국 종가 기준. 원/달러 1,515. KOSPI 5,450→삼성 실적 후 상승. 삼성전자 1Q OP 57.2조원 사상 최대(컨센서스 40조 대비 +42% 서프라이즈). 삼성전자 204,000(+11.7%), SK하이닉스 913,000(+2.4%). NVDA $178. 전 종목 안전. 매매 없음."}
+    {"date": "2026-04-07", "total": 102044799, "return_pct": 2.04, "note": "4/7 한국 종가(추정) + 4/6 미국 종가 기준. 원/달러 1,515. KOSPI 5,450→삼성 실적 후 상승. 삼성전자 1Q OP 57.2조원 사상 최대(컨센서스 40조 대비 +42% 서프라이즈). 삼성전자 204,000(+11.7%), SK하이닉스 913,000(+2.4%). NVDA $178. 전 종목 안전. 매매 없음."},
+    {"date": "2026-04-08", "total": 102482921, "return_pct": 2.48, "note": "4/8 한국 종가(추정) + 4/7 미국 종가 기준. 원/달러 1,510. KOSPI ~5,490. 4/7 삼성전자 실제 종가 196,500(기존 추정 204,000 보정). AVGO +6% 급등(Google 5년 TPU Ironwood + Anthropic 3.5GW AI칩 딜). AVGO 2주 추가매수($333). 이란 중재안 거부→전쟁 장기화. 한화에어로+6%(방산). 4/10 금통위 대기."}
   ]
 }
