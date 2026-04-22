@@ -2,22 +2,22 @@
   "start_date": "2026-03-29",
   "initial_capital": 100000000,
   "currency": "KRW",
-  "exchange_rate": 1460,
+  "exchange_rate": 1478,
   "cash": 56063975,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 917875, "current_price": 1150000, "quantity": 8, "target": 1500000, "stop_loss": 758000, "theme": "AI/HBM"},
-      {"name": "삼성전자", "ticker": "005930", "buy_price": 190012, "current_price": 215000, "quantity": 34, "target": 260000, "stop_loss": 155000, "theme": "AI/반도체"},
-      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1359000, "current_price": 1455000, "quantity": 3, "target": 1800000, "stop_loss": 1155000, "theme": "방산"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97594, "current_price": 108000, "quantity": 51, "target": 130000, "stop_loss": 82400, "theme": "원전/SMR"},
-      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 234000, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
-      {"name": "한화오션", "ticker": "042660", "buy_price": 123864, "current_price": 132000, "quantity": 22, "target": 180000, "stop_loss": 105000, "theme": "조선"}
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 917875, "current_price": 1224000, "quantity": 8, "target": 1500000, "stop_loss": 758000, "theme": "AI/HBM"},
+      {"name": "삼성전자", "ticker": "005930", "buy_price": 190012, "current_price": 219000, "quantity": 34, "target": 260000, "stop_loss": 155000, "theme": "AI/반도체"},
+      {"name": "한화에어로스페이스", "ticker": "012450", "buy_price": 1359000, "current_price": 1420000, "quantity": 3, "target": 1800000, "stop_loss": 1155000, "theme": "방산"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 97594, "current_price": 115700, "quantity": 51, "target": 130000, "stop_loss": 82400, "theme": "원전/SMR"},
+      {"name": "셀트리온", "ticker": "068270", "buy_price": 203500, "current_price": 232000, "quantity": 8, "target": 280000, "stop_loss": 173000, "theme": "바이오"},
+      {"name": "한화오션", "ticker": "042660", "buy_price": 123864, "current_price": 136000, "quantity": 22, "target": 180000, "stop_loss": 105000, "theme": "조선"}
     ],
     "US": [
-      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 172.00, "current_price": 201.00, "quantity": 20, "target": 266, "stop_loss": 145, "theme": "AI 인프라"},
-      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 423.00, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
-      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 280.19, "current_price": 342.00, "quantity": 11, "target": 370, "stop_loss": 238, "theme": "대형기술+AI"},
-      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 310.94, "current_price": 406.00, "quantity": 9, "target": 500, "stop_loss": 259, "theme": "AI+보안"}
+      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 172.00, "current_price": 202.06, "quantity": 20, "target": 266, "stop_loss": 145, "theme": "AI 인프라"},
+      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 356.77, "current_price": 418.07, "quantity": 5, "target": 580, "stop_loss": 303, "theme": "대형기술"},
+      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 280.19, "current_price": 339.00, "quantity": 11, "target": 370, "stop_loss": 238, "theme": "대형기술+AI"},
+      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 310.94, "current_price": 401.10, "quantity": 9, "target": 500, "stop_loss": 259, "theme": "AI+보안"}
     ]
   },
   "trades": [
@@ -67,6 +67,7 @@
     {"date": "2026-04-17", "total": 107233505, "return_pct": 7.23, "note": "4/17 한국 종가+4/16 미국 종가 기준. 원/달러 1,470(↓5 원화 강세 지속). 🔄 이란 물밑 대화 진행, 트럼프 '4월 내 합의 가능' 낙관, 백악관 휴전연장설 부인. 4/21 휴전 만료 D-4. KOSPI 6,211.72(+1.98% 6,200선 진입). 외국인 삼전+닉스 5조 쓸어담기 지속. 삼성전자 217,500(+3.08%), SK하이닉스 1,162,000(+2.29% 추정). 💥 두산에너빌리티 110,000(+6.80% 급등, 원전/에너지 모멘텀 강화). 한화에어로 1,495,000(+1.01%), 셀트리온 233,000(+1.30%), 한화오션 135,000(+3.05% 조선주 강세). 美시장(4/16): S&P 500 7,000+ 유지, VIX 18.15(안정). NVDA $199(+1.6%), MSFT $414(+0.7%), GOOGL $335(-0.6% 소폭 조정), AVGO $396(+0.9%). 📈 AVGO 목표가 상향 $431→$500(Meta+Google+Anthropic 메가딜 반영). GOOGL 목표가 90.5% 도달 주시(4/24 실적 D-7). 전 종목 안전(SK하이닉스 +26.6%, 삼전 +14.5%, 한화에어로 +10.0%, 두산 +12.7%, 셀트리온 +14.5%, 한화오션 +9.0%, NVDA +15.7%, MSFT +16.0%, GOOGL +19.6%, AVGO +27.4% 평단 대비). 매매 없음(3차 매수 4/24~29 조건 대기: 이란 4/21+GOOGL 4/24+MSFT 4/29. 현금 52.3% 유지)."},
     {"date": "2026-04-18", "total": 107364785, "return_pct": 7.36, "note": "휴장(토요일). 4/17 한국 종가+4/17 미국 종가 반영. 원/달러 1,465(↓5). ⚡이란 호르무즈 해협 상선 완전 개방 선언+이스라엘-레바논 10일 휴전 발효. WTI -12% 급락. S&P 500 7,147.52 사상최고(+1.77%). VIX 17.94(3월 이후 최저). NVDA $201(+1.0%), MSFT $420(+1.4%), GOOGL $336(+0.3%), AVGO $402(+1.5%). 트럼프 '핵심 합의 완료, 빠르게 진행'(Bloomberg). 미 이란 항구 봉쇄 유지(평화 딜까지). 4/20(월) 파키스탄 3차 대면 협상. 4/21 휴전 만료 D-3. 전 종목 안전. 매매 없음(주말). 월요일 한국시장 호르무즈 개방 반영 예상(KOSPI 6,300+). 3차 매수 조건 근접."},
     {"date": "2026-04-19", "total": 107364785, "return_pct": 7.36, "note": "휴장(일요일). 양시장 휴장. 4/17 종가 유지. 이란·미국 대표단 파키스탄 도착(3차 협상 준비). 4/21 휴전 만료 D-2. 기본합의 접근(악시오스). WTI $84. 투자비중 47.8%, 현금 52.2%. 전 종목 안전."},
-    {"date": "2026-04-20", "total": 107007435, "return_pct": 7.01, "note": "4/20 한국 종가(추정)+4/17 미국 종가 기준. 원/달러 1,460(↓5). 🔄이란 3차 대면 협상 개시(파키스탄). 4/21 휴전 만료 D-1. 기본합의 접근(악시오스), 2주 연장 검토(블룸버그). WTI $84. KOSPI ~6,178(반도체 숨고르기-0.5%). SK하이닉스 1,150,000(-1.0%), 삼전 215,000(-1.1%), 한화에어로 1,455,000(-2.7%), 두산 108,000(-1.8%), 셀트리온 234,000(+0.4%), 한화오션 132,000(-2.2%). MSFT $423, GOOGL $342, AVGO $406(보정). VIX 17.48. GOOGL 목표가 92.4% 도달 주시. 매매 없음(이란 D-1+SK하이닉스 4/23 대기). 주간분석 Week 4."}
+    {"date": "2026-04-20", "total": 107007435, "return_pct": 7.01, "note": "4/20 한국 종가(추정)+4/17 미국 종가 기준. 원/달러 1,460(↓5). 🔄이란 3차 대면 협상 개시(파키스탄). 4/21 휴전 만료 D-1. 기본합의 접근(악시오스), 2주 연장 검토(블룸버그). WTI $84. KOSPI ~6,178(반도체 숨고르기-0.5%). SK하이닉스 1,150,000(-1.0%), 삼전 215,000(-1.1%), 한화에어로 1,455,000(-2.7%), 두산 108,000(-1.8%), 셀트리온 234,000(+0.4%), 한화오션 132,000(-2.2%). MSFT $423, GOOGL $342, AVGO $406(보정). VIX 17.48. GOOGL 목표가 92.4% 도달 주시. 매매 없음(이란 D-1+SK하이닉스 4/23 대기). 주간분석 Week 4."},
+    {"date": "2026-04-22", "total": 108218000, "return_pct": 8.22, "note": "4/21 한국 종가+4/21 미국 종가 기준. 원/달러 1,478(↑18). ⚡이란 휴전 무기한 연장(4/21 미 장후 트럼프 발표, 해상봉쇄 유지). KOSPI 6,388.47 사상최고(+2.72%). SK하이닉스 1,224,000 신고가(+4.97% 120만 돌파). 삼전 219,000(+2.10%). 한화에어로 1,420,000(-2.39%). 두산 115,700(+4.23%). 셀트리온 232,000. 한화오션 136,000. S&P 500 7,064(-0.63%). NVDA $202. MSFT $418. GOOGL $339. AVGO $401. VIX 18.87. Warsh Fed 의장 인사청문회. 매매 없음(3차 매수 조건1 충족, 내일 SK하이닉스 1Q 실적→조건2 확인 후 실행 예정)."}
   ]
 }
