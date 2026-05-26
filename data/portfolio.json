@@ -2,19 +2,19 @@
   "start_date": "2026-03-29",
   "initial_capital": 100000000,
   "currency": "KRW",
-  "exchange_rate": 1503,
-  "cash": 48744695,
+  "exchange_rate": 1515,
+  "cash": 43798220,
   "holdings": {
     "KR": [
-      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 1230786, "current_price": 1940000, "quantity": 7, "target": 2500000, "stop_loss": 758000, "theme": "AI/HBM"},
-      {"name": "삼성전자", "ticker": "005930", "buy_price": 199039, "current_price": 294000, "quantity": 24, "target": 380000, "stop_loss": 155000, "theme": "AI/반도체"},
-      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 111079, "current_price": 112000, "quantity": 111, "target": 150000, "stop_loss": 95000, "theme": "원전/SMR"}
+      {"name": "SK하이닉스", "ticker": "000660", "buy_price": 1230786, "current_price": 1955000, "quantity": 7, "target": 2500000, "stop_loss": 758000, "theme": "AI/HBM"},
+      {"name": "삼성전자", "ticker": "005930", "buy_price": 199039, "current_price": 297000, "quantity": 24, "target": 380000, "stop_loss": 155000, "theme": "AI/반도체"},
+      {"name": "두산에너빌리티", "ticker": "034020", "buy_price": 111079, "current_price": 111600, "quantity": 111, "target": 150000, "stop_loss": 95000, "theme": "원전/SMR"}
     ],
     "US": [
-      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 189.65, "current_price": 215.33, "quantity": 33, "target": 300, "stop_loss": 160, "theme": "AI 인프라"},
-      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 399.20, "current_price": 418.57, "quantity": 18, "target": 580, "stop_loss": 333, "theme": "대형기술"},
-      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 280.19, "current_price": 382.97, "quantity": 6, "target": 450, "stop_loss": 320, "theme": "대형기술+AI"},
-      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 338.58, "current_price": 414.14, "quantity": 12, "target": 550, "stop_loss": 274, "theme": "AI+보안"}
+      {"name": "NVIDIA", "ticker": "NVDA", "buy_price": 189.65, "current_price": 219.00, "quantity": 33, "target": 300, "stop_loss": 160, "theme": "AI 인프라"},
+      {"name": "Microsoft", "ticker": "MSFT", "buy_price": 404.16, "current_price": 422.00, "quantity": 23, "target": 580, "stop_loss": 333, "theme": "대형기술"},
+      {"name": "Alphabet", "ticker": "GOOGL", "buy_price": 315.13, "current_price": 385.00, "quantity": 9, "target": 450, "stop_loss": 320, "theme": "대형기술+AI"},
+      {"name": "Broadcom", "ticker": "AVGO", "buy_price": 338.58, "current_price": 418.00, "quantity": 12, "target": 550, "stop_loss": 274, "theme": "AI+보안"}
     ]
   },
   "trades": [
@@ -65,7 +65,9 @@
     {"date": "2026-05-21", "type": "BUY", "ticker": "000660", "name": "SK하이닉스", "market": "KR", "price": 1860000, "quantity": 2, "note": "4차 매수: NVDA Q2 $91B 가이던스→HBM 수요 폭발 확인. 최대 수혜주. 삼성전자 파업 유보→반도체 수급 안정. SK증권 TP 300만원"},
     {"date": "2026-05-21", "type": "BUY", "ticker": "AVGO", "name": "Broadcom", "market": "US", "price": 422.00, "quantity": 2, "note": "4차 매수: NVDA $91B 가이던스→AI ASIC/네트워킹 수혜. Evercore TP $582 상향. Google TPU Ironwood+Meta capex 확대. 반도체 비중 34.4%"},
     {"date": "2026-05-21", "type": "BUY", "ticker": "034020", "name": "두산에너빌리티", "market": "KR", "price": 109000, "quantity": 15, "note": "4차 매수: 원전/SMR 구조적 성장 테마 유지. 109,000원 저평가 구간 추가매수. 에너지 전환 장기 수혜"},
-    {"date": "2026-05-23", "type": "BUY", "ticker": "MSFT", "name": "Microsoft", "market": "US", "price": 420.30, "quantity": 3, "note": "5차 추가매수: VIX 16.76 안정. 반도체 섹터 33.8% 상한 근접→대형기술 확대. Azure +40% 모멘텀, AI $37B(+123%), TP $580 대비 38% 업사이드. NVDA Q1 beat 후 AI 인프라 수혜 지속"}
+    {"date": "2026-05-23", "type": "BUY", "ticker": "MSFT", "name": "Microsoft", "market": "US", "price": 420.30, "quantity": 3, "note": "5차 추가매수: VIX 16.76 안정. 반도체 섹터 33.8% 상한 근접→대형기술 확대. Azure +40% 모멘텀, AI $37B(+123%), TP $580 대비 38% 업사이드. NVDA Q1 beat 후 AI 인프라 수혜 지속"},
+    {"date": "2026-05-26", "type": "BUY", "ticker": "MSFT", "name": "Microsoft", "market": "US", "price": 422.00, "quantity": 5, "note": "6차 추가매수: 트럼프 이란 협상 순조 발언→US futures 급등. WTI $91(-5%). 대형기술 섹터 17.3%로 확대. Azure +40%, TP $580 대비 37% 업사이드. 반도체 34.1% 상한→비반도체 집중"},
+    {"date": "2026-05-26", "type": "BUY", "ticker": "GOOGL", "name": "Alphabet", "market": "US", "price": 385.00, "quantity": 3, "note": "추가매수: 5/2 50% 익절 후 언더웨이트(2.2%→3.9% 확대). Cloud +63% EPS +81% 서프라이즈 모멘텀 유지. TP $450 대비 17% 업사이드. 이란 딜 진전→리스크온 환경"}
   ],
   "history": [
     {"date": "2026-03-29", "total": 100000000, "return_pct": 0.00, "note": "포트폴리오 개시"},
@@ -118,6 +120,7 @@
     {"date": "2026-05-22", "total": 114656000, "return_pct": 14.66, "note": "5/22 KR(추정)+5/21 US 종가. 원/달러 1,503(↑5). ⚡5/21 KR 대규모 가격 보정: 삼성전자 290,000→299,500(+8.51% 파업유보 랠리), SK하이닉스 1,860,000→1,940,000(+11.17% NVDA beat HBM 수혜, 장중 1,954,000 신고가). KOSPI 7,815.59(+8.42% +606.64p). 5/22: 차익실현 추정(US 5/21 S&P -0.45%, NVDA AH $220.66). 삼성전자 찬반투표 5/22 14시~5/27 시작. JP모건 삼전 TP 480,000 상향, 노무라 삼전 590,000+닉스 400만. 삼전 TP 320,000→380,000 상향. 매매 없음(4차 매수 직후, 반도체 섹터 34.1% 상한 근접). 현금 44.2%."},
     {"date": "2026-05-23", "total": 115018000, "return_pct": 15.02, "note": "5/23 KR+5/22 US 종가. 원/달러 1,507(↑4). ⚡5/22 KR 가격 보정: 삼성전자 296,000→292,500(실제 -2.34% 장중 300,500→차익실현 마감). SK하이닉스 1,915,000→1,939,000(실제 보합). 두산에너빌리티 107,500→111,600(실제 +2.95% 원전 반등). 5/23: KOSPI 7,862(range 7,780-7,887). 삼성전자 294,000(+0.5% 파업투표 중 소폭반등). SK하이닉스 1,940,000(보합). 두산에너빌리티 112,000(+0.4%). 5/22 US: NVDA $218.13(-0.6% 실적 후 차익실현 지속, range $215-$221). MSFT $420.30(고가 $433→$420 마감). GOOGL $387.66(-0.5%). AVGO $412.01(-1.4%). S&P 보합. VIX 16.76(-3.9% 안정). 이란 5차 회담(로마) 돌파구 없이 종료, 대화 지속 합의. 삼성전자 찬반투표 진행 중(투표율 57.4% 초과). 매매 실행: MSFT 3주 추가매수($420.30, 반도체 섹터 33.8% 상한→대형기술 확대). 투자비중 55.8%→57.6%. 현금 44.2%→42.4%."},
     {"date": "2026-05-24", "total": 114762000, "return_pct": 14.76, "note": "휴장(일요일). 5/22 US 가격 보정: NVDA $218.13→$215.33, MSFT $420.30→$417.80, GOOGL $387.66→$382.26. ⚠️트럼프 이란 군사공격 준비: CBS 5/22 '새 군사공격 준비'. 트럼프 워싱턴 잔류(Don Jr. 결혼식 불참). 파키스탄 육군참모총장 테헤란 중재 방문. Rubio '긍정적 신호'. ⚡미국 Memorial Day 5/25 휴장→한국만 개장(비대칭 리스크). 삼성전자 찬반투표 진행 중(첫날 투표율 66%, DX 부결 운동). S&P 500 7,473.47(8주 연속 상승, Dow 신고가 +294p). VIX 16.70. 매매 없음(휴장). 현금 42.5% 유지."},
-    {"date": "2026-05-25", "total": 114740000, "return_pct": 14.74, "note": "양국 휴장(한국 부처님오신날 대체공휴일 + 미국 Memorial Day). 5/22 US 종가 최종 보정: MSFT $417.80→$418.57, GOOGL $382.26→$382.97, AVGO $412.01→$414.14. 원/달러 1,503(↓4). CBS '트럼프 이란 군사공격 준비'. 이란 합의 임박설 부인. 파키스탄 중재 지속. 삼성전자 찬반투표 진행 중(투표율 66%+, DX 부결 운동). Fed Warsh 취임, Waller '인플레 고착화'. S&P 7,473.47(8주 연속↑). VIX 16.70. WTI ~$97. SOX +65% YTD, DRAM $418.6B(+177%). 매매 없음(양국 휴장). 현금 42.5% 유지. 주간분석 Week 10."}
+    {"date": "2026-05-25", "total": 114740000, "return_pct": 14.74, "note": "양국 휴장(한국 부처님오신날 대체공휴일 + 미국 Memorial Day). 5/22 US 종가 최종 보정: MSFT $417.80→$418.57, GOOGL $382.26→$382.97, AVGO $412.01→$414.14. 원/달러 1,503(↓4). CBS '트럼프 이란 군사공격 준비'. 이란 합의 임박설 부인. 파키스탄 중재 지속. 삼성전자 찬반투표 진행 중(투표율 66%+, DX 부결 운동). Fed Warsh 취임, Waller '인플레 고착화'. S&P 7,473.47(8주 연속↑). VIX 16.70. WTI ~$97. SOX +65% YTD, DRAM $418.6B(+177%). 매매 없음(양국 휴장). 현금 42.5% 유지. 주간분석 Week 10."},
+    {"date": "2026-05-26", "total": 115501000, "return_pct": 15.50, "note": "5/26 KR+5/26 US 종가. 원/달러 1,515(↑12). ⚡트럼프 5/25 '이란 협상 순조, 위대한 합의 또는 노딜' 발언→US futures 급등. WTI $91(-5% 주간). VIX 16.68(안정). SK하이닉스 1,955,000(+0.8%). 삼성전자 297,000(+1.0% 찬반투표 중). 두산에너빌리티 111,600(-0.4% WTI 하락 영향). NVDA $219(+1.7%). MSFT $422(+0.8%). GOOGL $385(+0.5%). AVGO $418(+0.9%). 삼성전자 찬반투표 진행 중(5/27 마감). 매매 실행: MSFT 5주@$422(6차)+GOOGL 3주@$385(추가매수). 대형기술 섹터 13%→17.3% 확대. 투자비중 57.5%→62.1%. 현금 42.5%→37.9%."}
   ]
 }
